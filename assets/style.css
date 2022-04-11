@@ -1,0 +1,296 @@
+/* TODO: make sure that all padding is one liner, organize into separate files,
+ and do alphabetical order */
+
+/* TODO: figure out how to change highlight color of dropdown menu */
+
+/* TODO: Add box shadow to buttons maybe */
+
+/* TODO: add different colors for cash left and cost */
+
+/* Controls style of selected options in dropdown */
+#etf-dropdown .Select--multi .Select-value {
+  background-color: white;
+  border-radius: 9px;
+  border: 2px solid #2ec4b6;
+  color: #2ec4b6;
+}
+
+/* Controls border radius of dropdown */
+#etf-dropdown .Select-control {
+  min-width: 250px;
+  padding: 5px;
+  border: none;
+  border-radius: 15px;
+}
+
+.Select-placeholder {
+  line-height: 43px !important;
+  font-size: 20px;
+}
+
+#etf-dropdown .Select-menu-outer {
+  color: #2ec4b6;
+  border-radius: 10px;
+}
+
+.btn {
+  text-transform: capitalize;
+}
+
+.btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn-close:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Control color of primary button */
+.btn-primary {
+  background-color: #FF9F1C; 
+  /* background-color: #ffbb5e; */
+  border: none;
+  border-radius: 15px;
+}
+
+/* control hover color of primary button */
+.btn-primary:hover {
+  background-color: #FFBF69;
+}
+
+.btn-primary:focus {
+  background-color: #FFBF69;
+  outline: none;
+  border: 0px;
+}
+
+.table-editor {
+  padding: 10px 20px 10px 20px;
+}
+
+.table-editor h3 {
+  font-size: 15px;
+}
+
+#add-btn {
+  margin: 35px 0 0 0;
+  padding: 8px 0 8px 0;
+  width: 100%;
+}
+
+#add-btn h3 {
+  font-size: 20px;
+}
+
+/* Background color of main div */
+#main-div {
+  background-color: #f5f5f5;
+}
+
+/* Needed to add border radius effect to specific columns (editable) */
+#investment-data .dash-cell.column-3 {
+  border-radius: 90px !important;
+  color: #fff;
+}
+
+#investment-data .dash-cell.column-5 {
+  border-radius: 90px !important;
+  color: #fff;
+}
+
+/* Needed to make text left aligned when cell is selected */
+input.input-active.unfocused.dash-cell-value {
+  text-align: inherit !important;
+}
+
+input.input-active.focused.dash-cell-value {
+  text-align: inherit !important;
+}
+
+/* card styling */
+
+.card {
+  border-radius: 1.093rem;
+  border: 0px;
+  padding-left: 12px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.table-card {
+  margin-top: 20px;
+  border-radius: 1.093rem;
+  padding: 0 0 0 0 !important;
+  background-color: #f9f9f9;
+}
+
+.region-card {
+  padding: 0 0 0 0 !important;
+}
+
+/* Make sure to shift position in table rather than in card */
+table {
+  position: relative;
+  top: -8px;
+}
+
+/* Make sure that table is card's size */
+.table-card-body {
+  padding: 0 0 0 0 !important;
+}
+
+.info.invest-amount {
+  background-color: #2ec4b6 !important; /* need !important to override background color of card */
+  /* background-color: #65a69d; */
+  padding-left: 12px;
+}
+
+.info.secondary.card {
+  background-color: #fefefe !important;
+  padding-left: 0px;
+}
+
+.info {
+  height: 8.75rem;
+}
+
+/* This is for nav bar */
+.container {
+  max-width: 100%;
+  margin-left: 3.3%;
+  margin-right: 3.3%;
+}
+
+/* alert styles */
+.alert-danger {
+  color: #2c2c2c;
+  border-radius: 1rem;
+  background: rgba(217, 83, 79, 0.6) !important;
+  background-color: none;
+  padding: 10px 48px 10px 16px;
+  margin: 5px 0 5px 0;
+}
+
+.alert-success {
+  color: #2c2c2c;
+  border-radius: 1rem;
+  background: rgba(89, 207, 136, 0.6) !important;
+  background-color: none;
+  padding: 10px 48px 10px 16px;
+  margin: 5px 0 5px 0;
+}
+
+.btn-close {
+  /* replace with original svg of bootstrap (needs better solution) */
+  background: transparent
+    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e")
+    center/1em auto no-repeat;
+  /* top padding increased to center btn since not a col */
+  padding: 20px 16px 10px 16px !important;
+}
+
+.alert-danger p {
+  font-weight: 700;
+}
+
+/* Change background color of nav bar */
+.navbar-light {
+  background-color: #f8f9fa !important;
+}
+
+nav {
+  padding: 2px 0 !important;
+}
+
+.navbar-brand {
+  padding: 2px 0 !important;
+}
+
+.row-main {
+  margin-top: 20px;
+  padding-left: 3.3%;
+  padding-right: 3.3%;
+}
+
+.row-main.table-section {
+  height: 21.875rem;
+}
+
+.row-main.graph-section {
+  height: 22.188rem;
+}
+
+.row-adder {
+  padding: 20px 12px 20px 12px;
+  height: 21.875rem;
+}
+
+.row-graph {
+  margin-top: 0.938rem;
+}
+
+.row-graph.region {
+  margin-top: 1.25rem;
+}
+
+/* TODO: make input css more adaptable when adding more inputs */
+
+input {
+  border: 0px;
+  color: #2c2c2c;
+}
+
+#invest-amount {
+  width: 60%;
+  margin-top: 10px;
+  padding-left: 20px;
+  font-weight: 900;
+  background-color: #fefefe;
+  border-radius: 15.666px;
+  height: 60px;
+  font-size: 50px;
+}
+
+.region-input {
+  margin: 5px 0px 5px 0px;
+  padding: 0px 20px 0px 20px;
+  border-radius: 12px;
+  background-color: #f1f2f3;
+  height: 40px;
+  width: 100%;
+  font-size: 18px;
+}
+
+#row-ticker {
+  margin-top: 20px;
+}
+
+h1 {
+  font-weight: 900;
+  font-size: 3.125rem;
+  color: #2c2c2c;
+  margin-top: 5px;
+}
+
+h2 {
+  font-weight: 900;
+  font-size: 2rem;
+  color: #2c2c2c;
+  margin-bottom: 0;
+}
+
+h3 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #2c2c2c;
+  margin-bottom: 0;
+}
+
+P {
+  font-weight: 400;
+  font-size: 1.125rem;
+  color: #2c2c2c;
+  margin-bottom: 0;
+}

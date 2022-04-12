@@ -30,18 +30,19 @@ def generate_invest_summary(invest_data_df):
 
     return invest_summary
 
-
+#TODO: update functionality with data from a store
 def get_default_allocs(collection, invest_data_df):
     """Returns the default planned allocations saved in the db"""
-    planned_allocs = get_column(collection, "ramonito", "planned_alloc")
+    #planned_allocs = get_column(collection, "ramonito", "planned_alloc")
     # Make sure that lengths correspond to each other
-    if len(planned_allocs) < len(invest_data_df):
-        for i in range(len(planned_allocs), len(invest_data_df)):
-            planned_allocs.append(float(invest_data_df.loc[i, ["Planned Allocation"]]))
-    elif len(invest_data_df) < len(planned_allocs):
-        planned_allocs = planned_allocs[: len(invest_data_df)]
+    #if len(planned_allocs) < len(invest_data_df):
+    #    for i in range(len(planned_allocs), len(invest_data_df)):
+    #        planned_allocs.append(float(invest_data_df.loc[i, ["Planned Allocation"]]))
+    #elif len(invest_data_df) < len(planned_allocs):
+    #    planned_allocs = planned_allocs[: len(invest_data_df)]
 
-    return planned_allocs
+    #return planned_allocs
+    return invest_data_df['Planned Allocation']
 
 
 def generate_row(new_ticker, new_region, new_allocation):

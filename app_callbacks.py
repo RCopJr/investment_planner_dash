@@ -1,4 +1,7 @@
 from subprocess import call
+import pandas as pd
+import io
+import base64
 from dash import dcc, html, Input, Output, State, callback, callback_context
 import dash
 import plotly.graph_objs as go
@@ -24,6 +27,26 @@ from try_excepts import try_invest_amount_conv
 collection = get_collection("investment_plans")
 
 # TODO: store prices in store so that it happens in background, store region data in store and show pie chart
+
+@callback(
+    Output('initial-table-store', 'data'),
+    Output('planner-upload', 'children'),
+    Output('planner-upload', 'contents'),
+    Input('planner-upload', 'contents'),
+    State('planner-upload', 'filename'),
+    State('initial-table-store', 'data')
+)
+def store_xlsx_in_store(content, filename, data):
+    """Updates store data with uploaded xlsx file"""
+    if content:
+        content_type, content_string = content.split(',')
+
+        decoded = base64.b64decode(content_string)
+        #TODO: omit this column when exportin as well and avoid dropping it here
+        df = pd.read_excel(io.BytesIO(decoded), index_col=None).drop(columns=['Unnamed: 0'])
+        json_data = df.to_json()
+        return json_data, html.H3(id='upload-text', children=[filename]), None
+    return None, dash.no_update, dash.no_update
 
 @callback(
     Output("download-xlsx-dataframe", "data"),
@@ -108,6 +131,7 @@ def update_etf_graph(dropdown_value, table_rows, table_columns):
     Input("add-btn", "n_clicks"),
     Input("update-price-btn", "n_clicks"),
     Input("undo-btn", "n_clicks"),
+    Input('initial-table-store', 'data'),
     State("row-ticker", "value"),
     State("row-region", "value"),
     State("row-allocation", "value"),
@@ -124,6 +148,7 @@ def update_invest_data(
     add_btn,
     update_price_btn,
     undo_btn,
+    json_data,
     new_ticker,
     new_region,
     new_allocation,
@@ -132,13 +157,19 @@ def update_invest_data(
     """Updates investment datatable, region datable, and general info"""
     # TODO: Add Exception handling (i.e. passing a str as the investment amount)
     # Stores data of changed or initial dataframe
+    # Handle button actions
+    changed_id = [p["prop_id"] for p in callback_context.triggered][0]
     has_started = True
     if app_status == "Not started":
         main_document = collection.find_one()  # Only have my document for now
         invest_data_df, invest_amount = init_from_db(main_document)
         has_started = False
     else:
-        invest_data_df = get_df(table_rows, table_columns)
+        if changed_id == "initial-table-store.data":
+            if json_data:
+                invest_data_df = pd.read_json(json_data)
+        else:
+            invest_data_df = get_df(table_rows, table_columns)
         # TODO: Put all try except in here
         if invest_amount_:
             invest_amount_ = invest_amount_[1:]
@@ -161,7 +192,6 @@ def update_invest_data(
             else (invest_data_df["Manual Adjustments"] * invest_data_df["Price"]).sum()
         )
     no_invest_amount = invest_amount == 0
-
     # Make sure to convert to correct datatypes before processing
     # TODO: Check why highlighting and deleting invest_amount does not update correctly
     for col in invest_data_df.columns.values:
@@ -169,9 +199,6 @@ def update_invest_data(
             invest_data_df[col] = invest_data_df[col].astype(float)
         except ValueError:
             pass
-
-    # Handle button actions
-    changed_id = [p["prop_id"] for p in callback_context.triggered][0]
     invest_data_df, error_info = handle_btn_actions(
         changed_id,
         collection,

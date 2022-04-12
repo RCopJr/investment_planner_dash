@@ -25,47 +25,6 @@ collection = get_collection("investment_plans")
 
 # TODO: store prices in store so that it happens in background, store region data in store and show pie chart
 
-
-@callback(
-    Output("success-alert-save", "children"),
-    Output("success-alert-save", "is_open"),
-    Output("saved-status-store", "clear_data"),
-    Input("saved-status-store", "data"),
-    prevent_initial_call=True,
-)
-def alert_saved(saved_status):
-    """prompts alert once data is saved"""
-    if saved_status == "success":
-        return "Saved Succesfully", True, True
-    else:
-        return dash.no_update, dash.no_update, False
-
-
-# TODO: add saved alert
-@callback(
-    Output("saved-status-store", "data"),
-    Output("exception-alert-save", "children"),
-    Output("exception-alert-save", "is_open"),
-    Input("save-db-btn", "n_clicks"),
-    State("investment-data", "data"),
-    State("investment-data", "columns"),
-    State("invest-amount", "value"),
-    prevent_initial_call=True,
-)
-def save_to_db(save_btn, table_rows, table_columns, invest_amount_):
-    """Updates my own document in the mongodb"""
-    if invest_amount_:
-        invest_amount_ = invest_amount_[1:]
-    invest_amount_float, error_info = try_invest_amount_conv(invest_amount_)
-    if error_info:
-        return dash.no_update, html.P(error_info), True
-    invest_data_df = get_df(table_rows, table_columns)
-    update_from_obj(
-        collection, "ramonito", create_doc_obj(invest_data_df, invest_amount_float)
-    )
-    return "success", "", False
-
-
 @callback(
     Output("download-xlsx-dataframe", "data"),
     Input("export-btn", "n_clicks"),

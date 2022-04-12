@@ -25,28 +25,6 @@ navbar = dbc.NavbarSimple(
                     align="center",
                     width="auto",
                 ),
-                dbc.Col(
-                    dbc.Alert(
-                        id="exception-alert-save",
-                        color="danger",
-                        is_open=False,
-                        dismissable=True,
-                        duration=4000,
-                    ),
-                    align="center",
-                    width="auto",
-                ),
-                dbc.Col(
-                    dbc.Alert(
-                        id="success-alert-save",
-                        color="success",
-                        is_open=False,
-                        dismissable=True,
-                        duration=4000,
-                    ),
-                    align="center",
-                    width="auto",
-                ),
                 dbc.Col("User Chooser (Coming Soon)", align="center", width="auto"),
             ]
         )
@@ -221,15 +199,6 @@ def get_plan_controller(investment_data, invest_data_columns):
                                             id="export-btn",
                                             class_name="table-editor",
                                             children=[html.H3("Export")],
-                                            n_clicks=0,
-                                        ),
-                                        width="auto",
-                                    ),
-                                    dbc.Col(
-                                        dbc.Button(
-                                            id="save-db-btn",
-                                            class_name="table-editor",
-                                            children=[html.H3("Save")],
                                             n_clicks=0,
                                         ),
                                         width="auto",

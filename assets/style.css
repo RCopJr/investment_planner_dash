@@ -7,6 +7,10 @@
 
 /* TODO: add different colors for cash left and cost */
 
+.spinner-border {
+  color: #2ec4b6; 
+}
+
 /* Controls style of selected options in dropdown */
 #etf-dropdown .Select--multi .Select-value {
   background-color: white;

@@ -159,6 +159,26 @@ def get_plan_controller(investment_data, invest_data_columns):
                             dbc.Row(
                                 [
                                     dbc.Col(
+                                        dcc.Upload(
+                                            id='planner-upload',
+                                            children=[html.H3(id='upload-text', children=["Upload .xlsx file"])],
+                                            accept='.xlsx',
+                                            style={
+                                                'padding': '7px 20px',
+                                                'backgroundColor': 'white',
+                                                'width': 'auto',
+                                                'height': '38px',
+                                                'lineHeight': '32px',
+                                                'borderWidth': '1px',
+                                                'borderStyle': 'dashed',
+                                                'borderRadius': '15px',
+                                                'textAlign': 'center',
+                                                'fontSize': '15px'
+                                            },
+                                        ),
+                                        width='auto',
+                                    ),
+                                    dbc.Col(
                                         dbc.Button(
                                             id="clear-ma-btn",
                                             class_name="table-editor",
@@ -447,6 +467,7 @@ def get_main_layout(collection):
             dcc.Download(id="download-xlsx-dataframe"),
             dcc.Store(id="app-status", data="Not started"),
             dcc.Store(id="saved-status-store", clear_data=True),
+            dcc.Store(id='initial-table-store', storage_type='session'),
             navbar,
             dbc.Container(
                 children=[

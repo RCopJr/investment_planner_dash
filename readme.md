@@ -8,5 +8,5 @@ A dash app that provides dashboards to help plan monthly investments with specif
 
 ### Dependencies
 
-Coming Soon
+requirements.txt
 

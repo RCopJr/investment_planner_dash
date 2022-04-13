@@ -23,9 +23,9 @@ navbar = dbc.NavbarSimple(
                         duration=4000,
                     ),
                     align="center",
-                    width="auto",
+                    lg="auto",
                 ),
-                dbc.Col("User Chooser (Coming Soon)", align="center", width="auto"),
+                dbc.Col("User Chooser (Coming Soon)", align="center", lg="auto"),
             ]
         )
     ],
@@ -58,10 +58,10 @@ def get_headline_data(invest_amount):
                             ),
                         ],
                     ),
-                    width=8,
+                    lg=8,
                 ),
             ),
-            width=6,
+            lg=6,
         ),
         dbc.Col(
             children=dbc.Row(
@@ -85,7 +85,7 @@ def get_headline_data(invest_amount):
                             ),
                             justify="end",
                         ),
-                        width="auto",
+                        lg="auto",
                     ),
                     dbc.Col(
                         dbc.Row(
@@ -104,12 +104,12 @@ def get_headline_data(invest_amount):
                             ),
                             justify="end",
                         ),
-                        width="auto",
+                        lg="auto",
                     ),
                 ],
                 justify="end",
             ),
-            width=6,
+            lg=6,
         ),
     ]
 
@@ -118,6 +118,7 @@ def get_plan_controller(investment_data, invest_data_columns):
     """Return initial layour for planner section"""
     return [
         dbc.Col(
+            class_name='col-row-adder',
             children=dbc.Card(
                 class_name="row-adder",
                 children=[
@@ -148,20 +149,20 @@ def get_plan_controller(investment_data, invest_data_columns):
                     )
                 ],
             ),
-            width=2,
+            lg=2,
         ),
         dbc.Col(
             [
                 dbc.Row(
                     [
-                        dbc.Col(html.H2("Planning"), width=2),
-                        dbc.Col(
+                        dbc.Col(class_name='col-planning-title', children=[html.H2("Planning")], lg=2),
+                        dbc.Col(class_name='col-table-buttons',children=[
                             dbc.Row(
                                 [
                                     dbc.Col(
                                         dcc.Upload(
                                             id='planner-upload',
-                                            children=[html.H3(id='upload-text', children=["Upload .xlsx file"])],
+                                            children=[html.H3(id='upload-text', children=["Upload"])],
                                             accept='.xlsx',
                                             style={
                                                 'padding': '7px 20px',
@@ -176,7 +177,8 @@ def get_plan_controller(investment_data, invest_data_columns):
                                                 'fontSize': '15px'
                                             },
                                         ),
-                                        width='auto',
+                                        xs=2,
+                                        lg='auto',
                                     ),
                                     dbc.Col(
                                         dbc.Button(
@@ -185,7 +187,8 @@ def get_plan_controller(investment_data, invest_data_columns):
                                             children=[html.H3("Clear")],
                                             n_clicks=0,
                                         ),
-                                        width="auto",
+                                        xs=2,
+                                        lg="auto",
                                     ),
                                     dbc.Col(
                                         dbc.Button(
@@ -194,7 +197,8 @@ def get_plan_controller(investment_data, invest_data_columns):
                                             children=[html.H3("Default")],
                                             n_clicks=0,
                                         ),
-                                        width="auto",
+                                        xs=2,
+                                        lg="auto",
                                     ),
                                     dbc.Col(
                                         dbc.Button(
@@ -203,7 +207,8 @@ def get_plan_controller(investment_data, invest_data_columns):
                                             children=[html.H3("Update")],
                                             n_clicks=0,
                                         ),
-                                        width="auto",
+                                        xs=2,
+                                        lg="auto",
                                     ),
                                     dbc.Col(
                                         dbc.Button(
@@ -212,7 +217,8 @@ def get_plan_controller(investment_data, invest_data_columns):
                                             children=[html.H3("Undo")],
                                             n_clicks=0,
                                         ),
-                                        width="auto",
+                                        xs=2,
+                                        lg="auto",
                                     ),
                                     dbc.Col(
                                         dbc.Button(
@@ -221,20 +227,21 @@ def get_plan_controller(investment_data, invest_data_columns):
                                             children=[html.H3("Export")],
                                             n_clicks=0,
                                         ),
-                                        width="auto",
+                                        xs=2,
+                                        lg="auto",
                                     ),
                                 ],
                                 align="center",
                                 justify="end",
-                            ),
-                            width=10,
+                            )],
+                            lg=10,
                         ),
                     ],
                     align="center",
                 ),
                 dbc.Row(
                     [
-                        dbc.Col(
+                        dbc.Col(class_name='col-table',
                             children=dbc.Card(
                                 class_name="table-card",
                                 children=dbc.CardBody(
@@ -302,7 +309,7 @@ def get_plan_controller(investment_data, invest_data_columns):
                     ]
                 ),
             ],
-            width=10,
+            lg=10,
         ),
     ]
 
@@ -310,8 +317,8 @@ def get_plan_controller(investment_data, invest_data_columns):
 hist_graph_display = [
     dbc.Row(
         [
-            dbc.Col(html.H2("Stock History"), align="center", width=4),
-            dbc.Col(
+            dbc.Col(class_name='col-stock-hist-title', children=[html.H2("Stock History")], align="center", lg=4),
+            dbc.Col(class_name='col-stock-hist-dropdown', children=[
                 dbc.Row(
                     dbc.Col(
                         dcc.Dropdown(
@@ -320,19 +327,18 @@ hist_graph_display = [
                             placeholder="Stocks...",
                             multi=True,
                         ),
-                        width="auto",
+                        lg="auto",
                     ),
                     justify="end",
-                ),
+                )],
                 align="center",
-                width="8",
+                lg="8",
             ),
         ]
     ),
     dbc.Row(
-        class_name="row-graph",
         children=[
-            dbc.Col(
+            dbc.Col(class_name='col-hist-graph',children=[
                 dbc.Card(
                     dbc.CardBody(
                         dcc.Graph(
@@ -352,7 +358,7 @@ hist_graph_display = [
                             },
                         )
                     )
-                )
+                )]
             )
         ],
     ),
@@ -362,11 +368,10 @@ hist_graph_display = [
 def get_region_display(region_data_columns):
     "Get region graph and table"
     return [
-        dbc.Row([dbc.Col(children=html.H2("Region Chart"), align="center")]),
+        dbc.Row(class_name='col-region-graph-title', children=[dbc.Col(children=html.H2("Region Chart"))], align="center"),
         dbc.Row(
-            class_name="row-graph region",
             children=[
-                dbc.Col(
+                dbc.Col(class_name='col-region-graph', children=[
                     dbc.Card(
                         class_name="region-card",
                         children=[
@@ -426,7 +431,7 @@ def get_region_display(region_data_columns):
                                 ],
                             )
                         ],
-                    ),
+                    )],
                 )
             ],
         ),
@@ -436,8 +441,8 @@ def get_region_display(region_data_columns):
 def get_graph_data(region_data_columns):
     """Get graph layout"""
     return [
-        dbc.Col(hist_graph_display, width=7),
-        dbc.Col(get_region_display(region_data_columns), width=5),
+        dbc.Col(hist_graph_display, lg=7),
+        dbc.Col(get_region_display(region_data_columns), lg=5),
     ]
 
 

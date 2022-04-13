@@ -128,7 +128,6 @@ input.input-active.focused.dash-cell-value {
 }
 
 .table-card {
-  margin-top: 20px;
   border-radius: 1.093rem;
   padding: 0 0 0 0 !important;
   background-color: #f9f9f9;
@@ -150,12 +149,14 @@ table {
 }
 
 .info.invest-amount {
+  margin-top: 20px;
   background-color: #2ec4b6 !important; /* need !important to override background color of card */
   /* background-color: #65a69d; */
   padding-left: 12px;
 }
 
 .info.secondary.card {
+  margin-top: 20px;
   background-color: #fefefe !important;
   padding-left: 0px;
 }
@@ -216,18 +217,53 @@ nav {
   padding: 2px 0 !important;
 }
 
-.row-main {
+.col-row-adder {
   margin-top: 20px;
+}
+
+.col-planning-title {
+  margin-top: 20px;
+}
+
+.col-table-buttons {
+  margin-top: 20px;
+}
+
+.col-table {
+  margin-top: 20px;
+}
+
+.col-stock-hist-title {
+ margin-top: 20px;
+}
+
+.col-stock-hist-dropdown {
+  margin-top: 20px;
+}
+
+.col-hist-graph {
+  margin-top: 20px;
+}
+
+.col-region-graph-title {
+  margin-top: 20px;
+}
+
+.col-region-graph {
+  margin-top: 20px;
+}
+
+.row-main {
   padding-left: 3.3%;
   padding-right: 3.3%;
 }
 
 .row-main.table-section {
-  height: 21.875rem;
+  height: auto;
 }
 
 .row-main.graph-section {
-  height: 22.188rem;
+  height: auto;
 }
 
 .row-adder {

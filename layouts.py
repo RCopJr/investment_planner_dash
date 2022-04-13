@@ -58,9 +58,11 @@ def get_headline_data(invest_amount):
                             ),
                         ],
                     ),
+                    xs=12,
                     lg=8,
                 ),
             ),
+            xs=12,
             lg=6,
         ),
         dbc.Col(
@@ -85,6 +87,7 @@ def get_headline_data(invest_amount):
                             ),
                             justify="end",
                         ),
+                        xs=6,
                         lg="auto",
                     ),
                     dbc.Col(
@@ -104,11 +107,13 @@ def get_headline_data(invest_amount):
                             ),
                             justify="end",
                         ),
+                        xs=6,
                         lg="auto",
                     ),
                 ],
                 justify="end",
             ),
+            xs=12,
             lg=6,
         ),
     ]
@@ -149,7 +154,8 @@ def get_plan_controller(investment_data, invest_data_columns):
                     )
                 ],
             ),
-            lg=2,
+            xs={'size': 12, 'order': 'last'},
+            lg={'size': 2, 'order': 'first'},
         ),
         dbc.Col(
             [
@@ -309,7 +315,8 @@ def get_plan_controller(investment_data, invest_data_columns):
                     ]
                 ),
             ],
-            lg=10,
+            xs={'size': 12, 'order': 'first'}, 
+            lg={'size': 10, 'order': 'last'},
         ),
     ]
 

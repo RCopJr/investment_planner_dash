@@ -250,7 +250,7 @@ nav {
 }
 
 .col-region-graph {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .row-main {
@@ -273,10 +273,6 @@ nav {
 
 .row-graph {
   margin-top: 0.938rem;
-}
-
-.row-graph.region {
-  margin-top: 1.25rem;
 }
 
 /* TODO: make input css more adaptable when adding more inputs */

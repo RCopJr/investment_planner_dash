@@ -398,7 +398,7 @@ def get_region_display(region_data_columns):
                                             "overflow": "hidden",
                                         },
                                         style_cell={
-                                            "fontSize": 18,
+                                            "fontSize": "17px",
                                             "textAlign": "left",
                                         },
                                         style_data={
@@ -424,7 +424,7 @@ def get_region_display(region_data_columns):
                                             "borderTop": "none",
                                             "color": "#2c2c2c",
                                             "fontWeight": "900",
-                                            "fontSize": "16px",
+                                            "fontSize": "18px",
                                         },
                                         style_header_conditional=[
                                             {

@@ -215,6 +215,7 @@ def update_invest_data(
             invest_data_df,
             prev_table_rows,
             table_columns,
+            json_data,
         )
 
         # Returns errors from trying to handle the button actions

@@ -69,21 +69,6 @@ def generate_invest_summary(invest_data_df):
 
     return invest_summary
 
-#TODO: update functionality with data from a store
-def get_default_allocs(collection, invest_data_df):
-    """Returns the default planned allocations saved in the db"""
-    #planned_allocs = get_column(collection, "ramonito", "planned_alloc")
-    # Make sure that lengths correspond to each other
-    #if len(planned_allocs) < len(invest_data_df):
-    #    for i in range(len(planned_allocs), len(invest_data_df)):
-    #        planned_allocs.append(float(invest_data_df.loc[i, ["Planned Allocation"]]))
-    #elif len(invest_data_df) < len(planned_allocs):
-    #    planned_allocs = planned_allocs[: len(invest_data_df)]
-
-    #return planned_allocs
-    return invest_data_df['Planned Allocation']
-
-
 def generate_row(new_ticker, new_region, new_allocation):
     """Generates new df row with base information"""
     stock_info = yf.Ticker(new_ticker).info
@@ -114,6 +99,7 @@ def handle_btn_actions(
     invest_data_df,
     prev_table_rows,
     table_columns,
+    json_data,
 ):
     """Update front-end based on the button clicked"""
     # TODO: refactor to remove the dash.update stuff
@@ -122,8 +108,7 @@ def handle_btn_actions(
         invest_data_df["Manual Adjustments"].values[:] = 0
     elif "default-alloc-btn" in changed_id:
         # Query db for planned_alloc and set df column
-        planned_allocs = get_default_allocs(collection, invest_data_df)
-        invest_data_df["Planned Allocation"] = np.array(planned_allocs)
+        invest_data_df = pd.read_json(json_data)
     elif "add-btn" in changed_id:
         if new_ticker and new_region and new_allocation:
             try:

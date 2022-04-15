@@ -20,7 +20,29 @@ navbar = dbc.NavbarSimple(
                         color="danger",
                         is_open=False,
                         dismissable=True,
-                        duration=4000,
+                        duration=6000,
+                    ),
+                    align="center",
+                    xl="auto",
+                ),
+                dbc.Col(
+                    dbc.Alert(
+                        id="exception-alert-xlsx",
+                        color="danger",
+                        is_open=False,
+                        dismissable=True,
+                        duration=6000,
+                    ),
+                    align="center",
+                    xl="auto",
+                ),
+                dbc.Col(
+                    dbc.Alert(
+                        id="success-alert-xlsx",
+                        color="success",
+                        is_open=False,
+                        dismissable=True,
+                        duration=6000,
                     ),
                     align="center",
                     xl="auto",
@@ -51,7 +73,7 @@ def get_headline_data(invest_amount):
                                     html.H3("Investment"),
                                     dcc.Input(
                                         id="invest-amount",
-                                        value="",
+                                        value="$ 0",
                                         placeholder="$",
                                     ),
                                 ]
@@ -166,22 +188,24 @@ def get_plan_controller(investment_data, invest_data_columns):
                             dbc.Row(
                                 [
                                     dbc.Col(
-                                        dcc.Upload(
-                                            id='planner-upload',
-                                            children=[html.H3(id='upload-text', children=["Upload"])],
-                                            accept='.xlsx',
-                                            style={
-                                                'padding': '7px 20px',
-                                                'backgroundColor': 'white',
-                                                'width': 'auto',
-                                                'height': '38px',
-                                                'lineHeight': '32px',
-                                                'borderWidth': '1px',
-                                                'borderStyle': 'dashed',
-                                                'borderRadius': '15px',
-                                                'textAlign': 'center',
-                                                'fontSize': '15px',
-                                            },
+                                        dbc.Spinner(
+                                            dcc.Upload(
+                                                id='planner-upload',
+                                                children=[html.H3(id='upload-text', children=["Upload"])],
+                                                accept='.xlsx',
+                                                style={
+                                                    'padding': '7px 20px',
+                                                    'backgroundColor': 'white',
+                                                    'width': 'auto',
+                                                    'height': '38px',
+                                                    'lineHeight': '32px',
+                                                    'borderWidth': '1px',
+                                                    'borderStyle': 'dashed',
+                                                    'borderRadius': '15px',
+                                                    'textAlign': 'center',
+                                                    'fontSize': '15px',
+                                                },
+                                            ),
                                         ),
                                         xs=2,
                                         xl='auto',

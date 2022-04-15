@@ -8,7 +8,46 @@ import dash
 from db_functions import get_column
 
 # TODO: refactor these functions into separate files as well
+def verify_xlsx(df):
+    """Verify that df is valid for application"""
+    if df.columns.values.tolist() == ['Region', 'Ticker', 'Price', 'Planned Allocation', 'Quantities', 'Manual Adjustments', 'Final Quantities', 'Costs', 'Actual Allocation']:
+        valid_columns = True
+    else:
+        valid_columns = False
 
+    valid_tickers = True
+    valid_floats = True
+    if valid_columns:
+        for col in df:
+            if not valid_tickers or not valid_floats:
+                break
+            if col == 'Ticker':
+                for t in df['Ticker'].values:
+                    ticker = yf.Ticker(t)
+                    info = None
+                    try:
+                        short_name = ticker.info['shortName']
+                    except:
+                        valid_tickers = False
+                        invalid_ticker = t
+                        break
+            elif col != 'Region':
+                for value in df[col].values:
+                    try:
+                        float(value)
+                    except ValueError:
+                        valid_floats = False
+                        invalid_column = col
+                        break
+
+    if not valid_columns:
+        return "Invalid columns in xlsx", False
+    elif not valid_tickers:
+        return "Invalid ticker in xlsx: '%s'" % invalid_ticker, False
+    elif not valid_floats:
+        return "Invalid table values in '%s' column" % invalid_column, False
+    else:
+        return "Successfully uploaded xlsx", True
 
 def generate_spending_summary(invest_data_df, invest_amount):
     """Generates spending summary (total cost and cash left)"""

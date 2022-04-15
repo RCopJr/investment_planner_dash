@@ -5,15 +5,11 @@ from layouts import get_main_layout
 
 import app_callbacks
 
-from db_functions import get_collection
-
-
 external_stylesheets = [dbc.themes.SANDSTONE]
 
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 
-collection = get_collection("investment_plans")
-app.layout = get_main_layout(collection)
+app.layout = get_main_layout()
 
 if __name__ == "__main__":
     app.run_server(

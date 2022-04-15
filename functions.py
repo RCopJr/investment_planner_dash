@@ -5,8 +5,6 @@ import yfinance as yf
 import plotly.graph_objs as go
 import dash
 
-from db_functions import get_column
-
 # TODO: refactor these functions into separate files as well
 def verify_xlsx(df):
     """Verify that df is valid for application"""
@@ -92,7 +90,6 @@ def generate_row(new_ticker, new_region, new_allocation):
 
 def handle_btn_actions(
     changed_id,
-    collection,
     new_ticker,
     new_region,
     new_allocation,

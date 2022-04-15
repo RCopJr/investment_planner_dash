@@ -21,11 +21,7 @@ from functions import (
     verify_xlsx,
 )
 
-from db_functions import get_collection, update_from_obj
-
 from try_excepts import try_invest_amount_conv
-
-collection = get_collection("investment_plans")
 
 # TODO: store prices in store so that it happens in background, store region data in store and show pie chart
 
@@ -208,7 +204,6 @@ def update_invest_data(
                 pass
         invest_data_df, error_info = handle_btn_actions(
             changed_id,
-            collection,
             new_ticker,
             new_region,
             new_allocation,

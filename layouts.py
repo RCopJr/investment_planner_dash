@@ -73,7 +73,7 @@ def get_headline_data(invest_amount):
                                     html.H3("Investment"),
                                     dcc.Input(
                                         id="invest-amount",
-                                        value="$ 0",
+                                        value=invest_amount,
                                         placeholder="$",
                                     ),
                                 ]
@@ -141,7 +141,7 @@ def get_headline_data(invest_amount):
     ]
 
 
-def get_plan_controller(investment_data, invest_data_columns):
+def get_plan_controller(invest_data_columns):
     """Return initial layour for planner section"""
     return [
         dbc.Col(
@@ -477,15 +477,10 @@ def get_graph_data(region_data_columns):
     ]
 
 
-def get_main_layout(collection):
-    # Connect to local server and access document
-    main_document = collection.find_one()  # Only have my document for now
-
-    investment_data, invest_amount = init_from_db(main_document)
-
+def get_main_layout():
     # Create column configs for dataframes
     invest_data_columns = get_column_configs(
-        investment_data.columns.values,
+        ['Region', 'Ticker', 'Price', 'Planned Allocation', 'Quantities', 'Manual Adjustments', 'Final Quantities', 'Costs', 'Actual Allocation'],
         ["Manual Adjustments", "Planned Allocation"],
         ["Price", "Costs"],
         ["Planned Allocation", "Actual Allocation"],
@@ -509,12 +504,12 @@ def get_main_layout(collection):
                 children=[
                     dbc.Row(
                         class_name="row-main info-section",
-                        children=get_headline_data(invest_amount),
+                        children=get_headline_data("$ 0"),
                     ),
                     dbc.Row(
                         class_name="row-main table-section",
                         children=get_plan_controller(
-                            investment_data, invest_data_columns
+                            invest_data_columns
                         ),
                     ),
                     dbc.Row(

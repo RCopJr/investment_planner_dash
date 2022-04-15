@@ -1,0 +1,23 @@
+#etf-dropdown .Select--multi .Select-value {
+  background-color: white;
+  border-radius: 9px;
+  border: 2px solid #2ec4b6;
+  color: #2ec4b6;
+}
+
+#etf-dropdown .Select-control {
+  min-width: 250px;
+  padding: 5px;
+  border: none;
+  border-radius: 15px;
+}
+
+.Select-placeholder {
+  line-height: 43px !important;
+  font-size: 20px;
+}
+
+#etf-dropdown .Select-menu-outer {
+  color: #2ec4b6;
+  border-radius: 10px;
+}

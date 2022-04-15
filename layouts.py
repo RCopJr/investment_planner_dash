@@ -145,7 +145,7 @@ def get_plan_controller(investment_data, invest_data_columns):
     """Return initial layour for planner section"""
     return [
         dbc.Col(
-            class_name='col-row-adder',
+            class_name='col-main-section',
             children=dbc.Card(
                 class_name="row-adder",
                 children=[
@@ -154,17 +154,17 @@ def get_plan_controller(investment_data, invest_data_columns):
                             html.H3("Add a Stock"),
                             dcc.Input(
                                 id="row-ticker",
-                                className="region-input",
+                                className="add-row-input",
                                 placeholder="Ticker...",
                             ),
                             dcc.Input(
                                 id="row-region",
-                                className="region-input",
+                                className="add-row-input",
                                 placeholder="Region...",
                             ),
                             dcc.Input(
                                 id="row-allocation",
-                                className="region-input",
+                                className="add-row-input",
                                 placeholder="Allocation...",
                             ),
                             dbc.Button(
@@ -183,8 +183,8 @@ def get_plan_controller(investment_data, invest_data_columns):
             [
                 dbc.Row(
                     [
-                        dbc.Col(class_name='col-planning-title', children=[html.H2("Planning")], xl=2),
-                        dbc.Col(class_name='col-table-buttons',children=[
+                        dbc.Col(class_name='col-main-section', children=[html.H2("Planning")], xl=2),
+                        dbc.Col(class_name='col-main-section',children=[
                             dbc.Row(
                                 [
                                     dbc.Col(
@@ -271,7 +271,7 @@ def get_plan_controller(investment_data, invest_data_columns):
                 ),
                 dbc.Row(
                     [
-                        dbc.Col(class_name='col-table',
+                        dbc.Col(class_name='col-main-section',
                             children=dbc.Card(
                                 class_name="table-card",
                                 children=dbc.CardBody(
@@ -348,8 +348,8 @@ def get_plan_controller(investment_data, invest_data_columns):
 hist_graph_display = [
     dbc.Row(
         [
-            dbc.Col(class_name='col-stock-hist-title', children=[html.H2("Stock History")], align="center", xl=4),
-            dbc.Col(class_name='col-stock-hist-dropdown', children=[
+            dbc.Col(class_name='col-main-section', children=[html.H2("Stock History")], align="center", xl=4),
+            dbc.Col(class_name='col-main-section', children=[
                 dbc.Row(
                     dbc.Col(
                         dcc.Dropdown(
@@ -369,7 +369,7 @@ hist_graph_display = [
     ),
     dbc.Row(
         children=[
-            dbc.Col(class_name='col-hist-graph',children=[
+            dbc.Col(class_name='col-main-section',children=[
                 dbc.Card(
                     dbc.CardBody(
                         dcc.Graph(
@@ -399,7 +399,7 @@ hist_graph_display = [
 def get_region_display(region_data_columns):
     "Get region graph and table"
     return [
-        dbc.Row(class_name='col-region-graph-title', children=[dbc.Col(children=html.H2("Region Chart"))], align="center"),
+        dbc.Row(class_name='col-main-section', children=[dbc.Col(children=html.H2("Region Chart"))], align="center"),
         dbc.Row(
             children=[
                 dbc.Col(class_name='col-region-graph', children=[

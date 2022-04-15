@@ -1,0 +1,39 @@
+.info.invest-amount {
+  margin-top: 20px;
+  background-color: #2ec4b6 !important; 
+  padding-left: 12px;
+}
+
+.info.secondary.card {
+  margin-top: 20px;
+  background-color: #fefefe !important;
+  padding-left: 0px;
+}
+
+.info {
+  height: 8.75rem;
+}
+
+.card {
+  border-radius: 1.093rem;
+  border: 0px;
+  padding-left: 12px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.table-card {
+  border-radius: 1.093rem;
+  padding: 0 0 0 0 !important;
+  background-color: #f9f9f9;
+}
+
+.region-card {
+  padding: 0 0 0 0 !important;
+}
+
+
+/* Make sure that table is card's size */
+.table-card-body {
+  padding: 0 0 0 0 !important;
+}

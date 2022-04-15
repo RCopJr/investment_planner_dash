@@ -1,0 +1,25 @@
+input {
+  border: 0px;
+  color: #2c2c2c;
+}
+
+.add-row-input {
+  margin: 5px 0px 5px 0px;
+  padding: 0px 20px 0px 20px;
+  border-radius: 12px;
+  background-color: #f1f2f3;
+  height: 40px;
+  width: 100%;
+  font-size: 18px;
+}
+
+#invest-amount {
+  width: 75%;
+  margin-top: 10px;
+  padding-left: 20px;
+  font-weight: 900;
+  background-color: #fefefe;
+  border-radius: 15.666px;
+  height: 60px;
+  font-size: 50px;
+}

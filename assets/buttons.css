@@ -1,0 +1,49 @@
+.btn {
+  text-transform: capitalize;
+}
+
+.btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn-close:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn-primary {
+  background-color: #FF9F1C; 
+  /* background-color: #ffbb5e; */
+  border: none;
+  border-radius: 15px;
+}
+
+.btn-primary:hover {
+  background-color: #FFBF69;
+}
+
+.btn-primary:focus {
+  background-color: #FFBF69;
+  outline: none;
+  border: 0px;
+}
+
+#add-btn {
+  margin: 35px 0 0 0;
+  padding: 8px 0 8px 0;
+  width: 100%;
+}
+
+#add-btn h3 {
+  font-size: 20px;
+}
+
+.btn-close {
+  /* replace with original svg of bootstrap (needs better solution) */
+  background: transparent
+    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e")
+    center/1em auto no-repeat;
+  /* top padding increased to center btn since not a col */
+  padding: 20px 16px 10px 16px !important;
+}

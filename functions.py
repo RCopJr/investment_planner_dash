@@ -8,7 +8,17 @@ import dash
 # TODO: refactor these functions into separate files as well
 def verify_xlsx(df):
     """Verify that df is valid for application"""
-    if df.columns.values.tolist() == ['Region', 'Ticker', 'Price', 'Planned Allocation', 'Quantities', 'Manual Adjustments', 'Final Quantities', 'Costs', 'Actual Allocation']:
+    if df.columns.values.tolist() == [
+        "Region",
+        "Ticker",
+        "Price",
+        "Planned Allocation",
+        "Quantities",
+        "Manual Adjustments",
+        "Final Quantities",
+        "Costs",
+        "Actual Allocation",
+    ]:
         valid_columns = True
     else:
         valid_columns = False
@@ -19,17 +29,17 @@ def verify_xlsx(df):
         for col in df:
             if not valid_tickers or not valid_floats:
                 break
-            if col == 'Ticker':
-                for t in df['Ticker'].values:
+            if col == "Ticker":
+                for t in df["Ticker"].values:
                     ticker = yf.Ticker(t)
                     info = None
                     try:
-                        short_name = ticker.info['shortName']
+                        short_name = ticker.info["shortName"]
                     except:
                         valid_tickers = False
                         invalid_ticker = t
                         break
-            elif col != 'Region':
+            elif col != "Region":
                 for value in df[col].values:
                     try:
                         float(value)
@@ -46,6 +56,7 @@ def verify_xlsx(df):
         return "Invalid table values in '%s' column" % invalid_column, False
     else:
         return "Successfully uploaded xlsx", True
+
 
 def generate_spending_summary(invest_data_df, invest_amount):
     """Generates spending summary (total cost and cash left)"""
@@ -66,6 +77,7 @@ def generate_invest_summary(invest_data_df):
         invest_summary = invest_summary + "{}: {} | ".format(etf, int(quant))
 
     return invest_summary
+
 
 def generate_row(new_ticker, new_region, new_allocation):
     """Generates new df row with base information"""

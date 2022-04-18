@@ -1,6 +1,3 @@
-import dash
-
-
 def try_invest_amount_conv(invest_amount_):
     """Handles exception when incorrect invest amount is inputted"""
     error_info = None

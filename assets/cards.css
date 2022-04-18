@@ -1,6 +1,6 @@
 .info.invest-amount {
   margin-top: 20px;
-  background-color: #2ec4b6 !important; 
+  background-color: #2ec4b6 !important;
   padding-left: 12px;
 }
 
@@ -31,7 +31,6 @@
 .region-card {
   padding: 0 0 0 0 !important;
 }
-
 
 /* Make sure that table is card's size */
 .table-card-body {

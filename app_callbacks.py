@@ -1,4 +1,3 @@
-from subprocess import call
 import pandas as pd
 import io
 import base64
@@ -13,46 +12,56 @@ from functions import (
     get_df,
     update_investment_plan_table,
     update_region_data_table,
-    create_doc_obj,
     create_history_graph,
     handle_btn_actions,
-    init_from_db,
     generate_spending_summary,
     verify_xlsx,
 )
 
 from try_excepts import try_invest_amount_conv
 
+
 # TODO: store prices in store so that it happens in background, store region data in store and show pie chart
 
+
 @callback(
-    Output('exception-alert-xlsx', 'is_open'),
-    Output('exception-alert-xlsx', 'children'),
-    Output('success-alert-xlsx', 'is_open'),
-    Output('success-alert-xlsx', 'children'),
-    Output('initial-table-store', 'data'),
-    Output('planner-upload', 'children'),
-    Output('planner-upload', 'contents'),
-    Input('planner-upload', 'contents'),
-    State('planner-upload', 'filename'),
-    State('initial-table-store', 'data')
+    Output("exception-alert-xlsx", "is_open"),
+    Output("exception-alert-xlsx", "children"),
+    Output("success-alert-xlsx", "is_open"),
+    Output("success-alert-xlsx", "children"),
+    Output("initial-table-store", "data"),
+    Output("planner-upload", "children"),
+    Output("planner-upload", "contents"),
+    Input("planner-upload", "contents"),
+    State("planner-upload", "filename"),
+    State("initial-table-store", "data"),
 )
 def store_xlsx_in_store(content, filename, data):
     """Updates store data with uploaded xlsx file"""
     if content:
-        content_type, content_string = content.split(',')
+        content_type, content_string = content.split(",")
 
         decoded = base64.b64decode(content_string)
-        #TODO: omit this column when exportin as well and avoid dropping it here
-        df = pd.read_excel(io.BytesIO(decoded), index_col=None).drop(columns=['Unnamed: 0'])
-        alert_msg, is_valid = verify_xlsx(df) 
+        # TODO: omit this column when exportin as well and avoid dropping it here
+        df = pd.read_excel(io.BytesIO(decoded), index_col=None).drop(
+            columns=["Unnamed: 0"]
+        )
+        alert_msg, is_valid = verify_xlsx(df)
         if not is_valid:
             return True, alert_msg, False, "", dash.no_update, dash.no_update, None
 
         json_data = df.to_json()
-        invest_data_df = pd.read_json(json_data)
-        return False, "", True, alert_msg, json_data, html.H3(id='upload-text', children=[filename]), None
+        return (
+            False,
+            "",
+            True,
+            alert_msg,
+            json_data,
+            html.H3(id="upload-text", children=[filename]),
+            None,
+        )
     return False, "", False, "", None, dash.no_update, dash.no_update
+
 
 @callback(
     Output("download-xlsx-dataframe", "data"),
@@ -106,7 +115,6 @@ def update_etf_options(table_rows, table_columns):
 )
 def update_etf_graph(dropdown_value, table_rows, table_columns):
     """Updates ETF graph based on provided ETF ticker"""
-    invest_data_df = get_df(table_rows, table_columns)
     # TODO: add placeholder and check if etf exists or etf list is empty
     # For multi-dropdowns, if one value, passes string, if multiple, passes list
 
@@ -134,7 +142,7 @@ def update_etf_graph(dropdown_value, table_rows, table_columns):
     Input("add-btn", "n_clicks"),
     Input("update-price-btn", "n_clicks"),
     Input("undo-btn", "n_clicks"),
-    Input('initial-table-store', 'data'),
+    Input("initial-table-store", "data"),
     State("row-ticker", "value"),
     State("row-region", "value"),
     State("row-allocation", "value"),
@@ -174,7 +182,7 @@ def update_invest_data(
         invest_amount_float, error_info = try_invest_amount_conv(invest_amount_)
         # Returns errors from trying conversion
         if error_info:
-            #TODO: find solution for when changed_id changes while uploading xlsx
+            # TODO: find solution for when changed_id changes while uploading xlsx
             if changed_id == "initial-table-store.data":
                 table_df = invest_data_df.to_dict("records")
             else:
@@ -251,4 +259,12 @@ def update_invest_data(
             dash.no_update if has_started else "Started",
         )
     else:
-        return dash.no_update,  dash.no_update,  dash.no_update,  dash.no_update,  dash.no_update, False, dash.no_update   
+        return (
+            dash.no_update,
+            dash.no_update,
+            dash.no_update,
+            dash.no_update,
+            dash.no_update,
+            False,
+            dash.no_update,
+        )

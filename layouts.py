@@ -1,11 +1,8 @@
 from dash import dash_table, html, dcc
 import dash_bootstrap_components as dbc
-import dash
-import plotly.graph_objs as go
 
 from functions import (
     get_column_configs,
-    init_from_db,
 )
 
 # TODO: use keyword arguements, fix region chart section and add graph, handle too many dropdown selections
@@ -58,7 +55,7 @@ navbar = dbc.NavbarSimple(
     },
 )
 
-# TODO: Create function for the three col elements since they will be very similar
+
 def get_headline_data(invest_amount):
     """Generates layout for headline data and loads in invest amount"""
     return [
@@ -145,7 +142,7 @@ def get_plan_controller(invest_data_columns):
     """Return initial layour for planner section"""
     return [
         dbc.Col(
-            class_name='col-main-section',
+            class_name="col-main-section",
             children=dbc.Card(
                 class_name="row-adder",
                 children=[
@@ -174,96 +171,108 @@ def get_plan_controller(invest_data_columns):
                             ),
                         ]
                     )
-                ]
+                ],
             ),
-            xs={'size': 12, 'order': 'last'},
-            xl={'size': 2, 'order': 'first'},
+            xs={"size": 12, "order": "last"},
+            xl={"size": 2, "order": "first"},
         ),
         dbc.Col(
             [
                 dbc.Row(
                     [
-                        dbc.Col(class_name='col-main-section', children=[html.H2("Planning")], xl=2),
-                        dbc.Col(class_name='col-main-section',children=[
-                            dbc.Row(
-                                [
-                                    dbc.Col(
-                                        dbc.Spinner(
-                                            dcc.Upload(
-                                                id='planner-upload',
-                                                children=[html.H3(id='upload-text', children=["Upload"])],
-                                                accept='.xlsx',
-                                                style={
-                                                    'padding': '7px 20px',
-                                                    'backgroundColor': 'white',
-                                                    'width': 'auto',
-                                                    'height': '38px',
-                                                    'lineHeight': '32px',
-                                                    'borderWidth': '1px',
-                                                    'borderStyle': 'dashed',
-                                                    'borderRadius': '15px',
-                                                    'textAlign': 'center',
-                                                    'fontSize': '15px',
-                                                },
+                        dbc.Col(
+                            class_name="col-main-section",
+                            children=[html.H2("Planning")],
+                            xl=2,
+                        ),
+                        dbc.Col(
+                            class_name="col-main-section",
+                            children=[
+                                dbc.Row(
+                                    [
+                                        dbc.Col(
+                                            dbc.Spinner(
+                                                dcc.Upload(
+                                                    id="planner-upload",
+                                                    children=[
+                                                        html.H3(
+                                                            id="upload-text",
+                                                            children=["Upload"],
+                                                        )
+                                                    ],
+                                                    accept=".xlsx",
+                                                    style={
+                                                        "padding": "7px 20px",
+                                                        "backgroundColor": "white",
+                                                        "width": "auto",
+                                                        "height": "38px",
+                                                        "lineHeight": "32px",
+                                                        "borderWidth": "1px",
+                                                        "borderStyle": "dashed",
+                                                        "borderRadius": "15px",
+                                                        "textAlign": "center",
+                                                        "fontSize": "15px",
+                                                    },
+                                                ),
                                             ),
+                                            xs=2,
+                                            xl="auto",
                                         ),
-                                        xs=2,
-                                        xl='auto',
-                                    ),
-                                    dbc.Col(
-                                        dbc.Button(
-                                            id="clear-ma-btn",
-                                            class_name="table-editor",
-                                            children=[html.H3("Clear")],
-                                            n_clicks=0,
+                                        dbc.Col(
+                                            dbc.Button(
+                                                id="clear-ma-btn",
+                                                class_name="table-editor",
+                                                children=[html.H3("Clear")],
+                                                n_clicks=0,
+                                            ),
+                                            xs=2,
+                                            xl="auto",
                                         ),
-                                        xs=2,
-                                        xl="auto",
-                                    ),
-                                    dbc.Col(
-                                        dbc.Button(
-                                            id="default-alloc-btn",
-                                            class_name="table-editor",
-                                            children=[html.H3("Default")],
-                                            n_clicks=0,
+                                        dbc.Col(
+                                            dbc.Button(
+                                                id="default-alloc-btn",
+                                                class_name="table-editor",
+                                                children=[html.H3("Default")],
+                                                n_clicks=0,
+                                            ),
+                                            xs=2,
+                                            xl="auto",
                                         ),
-                                        xs=2,
-                                        xl="auto",
-                                    ),
-                                    dbc.Col(
-                                        dbc.Button(
-                                            id="update-price-btn",
-                                            class_name="table-editor",
-                                            children=[html.H3("Update")],
-                                            n_clicks=0,
+                                        dbc.Col(
+                                            dbc.Button(
+                                                id="update-price-btn",
+                                                class_name="table-editor",
+                                                children=[html.H3("Update")],
+                                                n_clicks=0,
+                                            ),
+                                            xs=2,
+                                            xl="auto",
                                         ),
-                                        xs=2,
-                                        xl="auto",
-                                    ),
-                                    dbc.Col(
-                                        dbc.Button(
-                                            id="undo-btn",
-                                            class_name="table-editor",
-                                            children=[html.H3("Undo")],
-                                            n_clicks=0,
+                                        dbc.Col(
+                                            dbc.Button(
+                                                id="undo-btn",
+                                                class_name="table-editor",
+                                                children=[html.H3("Undo")],
+                                                n_clicks=0,
+                                            ),
+                                            xs=2,
+                                            xl="auto",
                                         ),
-                                        xs=2,
-                                        xl="auto",
-                                    ),
-                                    dbc.Col(
-                                        dbc.Button(
-                                            id="export-btn",
-                                            class_name="table-editor",
-                                            children=[html.H3("Export")],
-                                            n_clicks=0,
+                                        dbc.Col(
+                                            dbc.Button(
+                                                id="export-btn",
+                                                class_name="table-editor",
+                                                children=[html.H3("Export")],
+                                                n_clicks=0,
+                                            ),
+                                            xs=2,
+                                            xl="auto",
                                         ),
-                                        xs=2,
-                                        xl="auto",
-                                    ),
-                                ],
-                                align="center",
-                                justify="end",
-                            )],
+                                    ],
+                                    align="center",
+                                    justify="end",
+                                )
+                            ],
                             xl=10,
                         ),
                     ],
@@ -271,7 +280,8 @@ def get_plan_controller(invest_data_columns):
                 ),
                 dbc.Row(
                     [
-                        dbc.Col(class_name='col-main-section',
+                        dbc.Col(
+                            class_name="col-main-section",
                             children=dbc.Card(
                                 class_name="table-card",
                                 children=dbc.CardBody(
@@ -339,8 +349,8 @@ def get_plan_controller(invest_data_columns):
                     ]
                 ),
             ],
-            xs={'size': 12, 'order': 'first'}, 
-            xl={'size': 10, 'order': 'last'},
+            xs={"size": 12, "order": "first"},
+            xl={"size": 10, "order": "last"},
         ),
     ]
 
@@ -348,20 +358,28 @@ def get_plan_controller(invest_data_columns):
 hist_graph_display = [
     dbc.Row(
         [
-            dbc.Col(class_name='col-main-section', children=[html.H2("Stock History")], align="center", xl=4),
-            dbc.Col(class_name='col-main-section', children=[
-                dbc.Row(
-                    dbc.Col(
-                        dcc.Dropdown(
-                            id="etf-dropdown",
-                            options=["VCN.TO", "HXQ.TO", "XIT.TO"],
-                            placeholder="Stocks...",
-                            multi=True,
+            dbc.Col(
+                class_name="col-main-section",
+                children=[html.H2("Stock History")],
+                align="center",
+                xl=4,
+            ),
+            dbc.Col(
+                class_name="col-main-section",
+                children=[
+                    dbc.Row(
+                        dbc.Col(
+                            dcc.Dropdown(
+                                id="etf-dropdown",
+                                options=["VCN.TO", "HXQ.TO", "XIT.TO"],
+                                placeholder="Stocks...",
+                                multi=True,
+                            ),
+                            xl="auto",
                         ),
-                        xl="auto",
-                    ),
-                    justify="end",
-                )],
+                        justify="end",
+                    )
+                ],
                 align="center",
                 xl="8",
             ),
@@ -369,27 +387,30 @@ hist_graph_display = [
     ),
     dbc.Row(
         children=[
-            dbc.Col(class_name='col-main-section',children=[
-                dbc.Card(
-                    dbc.CardBody(
-                        dcc.Graph(
-                            id="etf-graph",
-                            config={
-                                "modeBarButtonsToRemove": [
-                                    "sendDataToCloud",
-                                    "toImage",
-                                    "autoScale2d",
-                                    "hoverClosestCartesian",
-                                    "hoverCompareCartesian",
-                                    "select2d",
-                                    "lasso2d",
-                                    "zoomIn2d",
-                                    "zoomOut2d",
-                                ]
-                            },
+            dbc.Col(
+                class_name="col-main-section",
+                children=[
+                    dbc.Card(
+                        dbc.CardBody(
+                            dcc.Graph(
+                                id="etf-graph",
+                                config={
+                                    "modeBarButtonsToRemove": [
+                                        "sendDataToCloud",
+                                        "toImage",
+                                        "autoScale2d",
+                                        "hoverClosestCartesian",
+                                        "hoverCompareCartesian",
+                                        "select2d",
+                                        "lasso2d",
+                                        "zoomIn2d",
+                                        "zoomOut2d",
+                                    ]
+                                },
+                            )
                         )
                     )
-                )]
+                ],
             )
         ],
     ),
@@ -399,70 +420,77 @@ hist_graph_display = [
 def get_region_display(region_data_columns):
     "Get region graph and table"
     return [
-        dbc.Row(class_name='col-main-section', children=[dbc.Col(children=html.H2("Region Chart"))], align="center"),
+        dbc.Row(
+            class_name="col-main-section",
+            children=[dbc.Col(children=html.H2("Region Chart"))],
+            align="center",
+        ),
         dbc.Row(
             children=[
-                dbc.Col(class_name='col-region-graph', children=[
-                    dbc.Card(
-                        class_name="region-card",
-                        children=[
-                            dbc.CardBody(
-                                children=[
-                                    dash_table.DataTable(
-                                        id="region-data",
-                                        columns=region_data_columns,
-                                        css=[
-                                            {
-                                                "selector": "table",
-                                                "rule": "border-collapse: separate; border-spacing: 0 8px;",
-                                            }
-                                        ],
-                                        style_table={
-                                            "borderRadius": "1.093rem",  # Needed to be adjusted to account for position change
-                                            "overflow": "hidden",
-                                        },
-                                        style_cell={
-                                            "fontSize": "17px",
-                                            "textAlign": "left",
-                                        },
-                                        style_data={
-                                            "backgroundColor": "#f9f9f9",
-                                            "border": "none",
-                                            "color": "#2c2c2c",
-                                        },
-                                        style_as_list_view=True,
-                                        style_data_conditional=[
-                                            {
-                                                "if": {"column_editable": True},
-                                                "backgroundColor": "white",
+                dbc.Col(
+                    class_name="col-region-graph",
+                    children=[
+                        dbc.Card(
+                            class_name="region-card",
+                            children=[
+                                dbc.CardBody(
+                                    children=[
+                                        dash_table.DataTable(
+                                            id="region-data",
+                                            columns=region_data_columns,
+                                            css=[
+                                                {
+                                                    "selector": "table",
+                                                    "rule": "border-collapse: separate; border-spacing: 0 8px;",
+                                                }
+                                            ],
+                                            style_table={
+                                                "borderRadius": "1.093rem",  # Needed to be adjusted to account for position change
+                                                "overflow": "hidden",
+                                            },
+                                            style_cell={
+                                                "fontSize": "17px",
+                                                "textAlign": "left",
+                                            },
+                                            style_data={
+                                                "backgroundColor": "#f9f9f9",
+                                                "border": "none",
                                                 "color": "#2c2c2c",
                                             },
-                                            {
-                                                "if": {"state": "selected"},
-                                                "backgroundColor": "inherit !important",
-                                                "border": "inherit !important",
-                                            },
-                                        ],
-                                        style_header={
-                                            "backgroundColor": "white",
-                                            "borderTop": "none",
-                                            "color": "#2c2c2c",
-                                            "fontWeight": "900",
-                                            "fontSize": "18px",
-                                        },
-                                        style_header_conditional=[
-                                            {
-                                                "if": {"column_editable": True},
+                                            style_as_list_view=True,
+                                            style_data_conditional=[
+                                                {
+                                                    "if": {"column_editable": True},
+                                                    "backgroundColor": "white",
+                                                    "color": "#2c2c2c",
+                                                },
+                                                {
+                                                    "if": {"state": "selected"},
+                                                    "backgroundColor": "inherit !important",
+                                                    "border": "inherit !important",
+                                                },
+                                            ],
+                                            style_header={
                                                 "backgroundColor": "white",
+                                                "borderTop": "none",
                                                 "color": "#2c2c2c",
-                                            }
-                                        ],
-                                        page_size=4,
-                                    )
-                                ],
-                            )
-                        ],
-                    )],
+                                                "fontWeight": "900",
+                                                "fontSize": "18px",
+                                            },
+                                            style_header_conditional=[
+                                                {
+                                                    "if": {"column_editable": True},
+                                                    "backgroundColor": "white",
+                                                    "color": "#2c2c2c",
+                                                }
+                                            ],
+                                            page_size=4,
+                                        )
+                                    ],
+                                )
+                            ],
+                        )
+                    ],
                 )
             ],
         ),
@@ -480,7 +508,17 @@ def get_graph_data(region_data_columns):
 def get_main_layout():
     # Create column configs for dataframes
     invest_data_columns = get_column_configs(
-        ['Region', 'Ticker', 'Price', 'Planned Allocation', 'Quantities', 'Manual Adjustments', 'Final Quantities', 'Costs', 'Actual Allocation'],
+        [
+            "Region",
+            "Ticker",
+            "Price",
+            "Planned Allocation",
+            "Quantities",
+            "Manual Adjustments",
+            "Final Quantities",
+            "Costs",
+            "Actual Allocation",
+        ],
         ["Manual Adjustments", "Planned Allocation"],
         ["Price", "Costs"],
         ["Planned Allocation", "Actual Allocation"],
@@ -498,7 +536,7 @@ def get_main_layout():
             dcc.Download(id="download-xlsx-dataframe"),
             dcc.Store(id="app-status", data="Not started"),
             dcc.Store(id="saved-status-store", clear_data=True),
-            dcc.Store(id='initial-table-store', storage_type='session'),
+            dcc.Store(id="initial-table-store", storage_type="session"),
             navbar,
             dbc.Container(
                 children=[
@@ -508,9 +546,7 @@ def get_main_layout():
                     ),
                     dbc.Row(
                         class_name="row-main table-section",
-                        children=get_plan_controller(
-                            invest_data_columns
-                        ),
+                        children=get_plan_controller(invest_data_columns),
                     ),
                     dbc.Row(
                         class_name="row-main graph-section",

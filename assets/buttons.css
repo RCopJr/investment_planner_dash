@@ -13,18 +13,18 @@
 }
 
 .btn-primary {
-  background-color: #FF9F1C; 
+  background-color: #ff9f1c;
   /* background-color: #ffbb5e; */
   border: none;
   border-radius: 15px;
 }
 
 .btn-primary:hover {
-  background-color: #FFBF69;
+  background-color: #ffbf69;
 }
 
 .btn-primary:focus {
-  background-color: #FFBF69;
+  background-color: #ffbf69;
   outline: none;
   border: 0px;
 }

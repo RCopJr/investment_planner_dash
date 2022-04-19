@@ -12,6 +12,4 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 app.layout = get_main_layout()
 
 if __name__ == "__main__":
-    app.run_server(
-        debug=True, use_reloader=False
-    )  # Need to set debug=False to avoid connection issues with yfinance
+    app.run_server(debug=True, use_reloader=False)

@@ -262,15 +262,14 @@ def get_column_configs(
     return columns
 
 
-def update_investment_plan_table(invest_data_df, invest_amount, using_ma_only=False):
+def update_investment_plan_table(invest_data_df, invest_amount):
     """Updates investment plan table values depending on investment amount"""
     # Update quantities based on investment amount
-    if not using_ma_only:
-        invest_data_df["Quantities"] = np.floor(
-            invest_data_df["Planned Allocation"].astype(float)
-            * invest_amount
-            / invest_data_df["Price"]
-        ).astype(int)
+    invest_data_df["Quantities"] = np.floor(
+        invest_data_df["Planned Allocation"].astype(float)
+        * invest_amount
+        / invest_data_df["Price"]
+    ).astype(int)
     # Update Final Quantities
     invest_data_df["Final Quantities"] = (
         invest_data_df["Quantities"] + invest_data_df["Manual Adjustments"]
@@ -279,13 +278,10 @@ def update_investment_plan_table(invest_data_df, invest_amount, using_ma_only=Fa
     invest_data_df["Costs"] = (
         invest_data_df["Final Quantities"] * invest_data_df["Price"]
     )
-    # Update Actual Allocations
-    if not using_ma_only:
-        invest_data_df["Actual Allocation"] = invest_data_df["Costs"].div(invest_amount)
-    else:
-        invest_data_df.loc[:, "Actual Allocation"] = (
-            invest_data_df["Costs"].div(invest_amount) if invest_amount else 0
-        )
+
+    invest_data_df["Actual Allocation"] = (
+        invest_data_df["Costs"].div(invest_amount) if invest_amount else 0
+    )
 
     return invest_data_df
 

@@ -131,7 +131,6 @@ def update_etf_graph(dropdown_value, table_rows, table_columns):
     Output("region-data", "data"),
     Output("exception-alert-table", "children"),
     Output("exception-alert-table", "is_open"),
-    Output("app-status", "data"),
     Input("invest-amount", "value"),
     Input("investment-data", "data"),
     State("investment-data", "data_previous"),
@@ -146,7 +145,6 @@ def update_etf_graph(dropdown_value, table_rows, table_columns):
     State("row-ticker", "value"),
     State("row-region", "value"),
     State("row-allocation", "value"),
-    Input("app-status", "data"),
 )
 def update_invest_data(
     invest_amount_,
@@ -163,108 +161,91 @@ def update_invest_data(
     new_ticker,
     new_region,
     new_allocation,
-    app_status,
 ):
     """Updates investment datatable, region datable, and general info"""
     # TODO: Add Exception handling (i.e. passing a str as the investment amount)
     # Stores data of changed or initial dataframe
     # Handle button actions
     changed_id = [p["prop_id"] for p in callback_context.triggered][0]
-    has_started = True
-    if json_data:
-        if changed_id == "initial-table-store.data":
-            invest_data_df = pd.read_json(json_data)
-        else:
-            invest_data_df = get_df(table_rows, table_columns)
-        # TODO: Put all try except in here
-        if invest_amount_:
-            invest_amount_ = invest_amount_[1:]
-        invest_amount_float, error_info = try_invest_amount_conv(invest_amount_)
-        # Returns errors from trying conversion
-        if error_info:
-            # TODO: find solution for when changed_id changes while uploading xlsx
-            if changed_id == "initial-table-store.data":
-                table_df = invest_data_df.to_dict("records")
-            else:
-                table_df = dash.no_update
-            return (
-                table_df,
-                dash.no_update,
-                dash.no_update,
-                dash.no_update,
-                html.P(error_info),
-                True,
-                dash.no_update,
-            )
-        # Set investment amount to input value or outcome of manual adjustments
-        invest_amount = (
-            invest_amount_float
-            if invest_amount_
-            else (invest_data_df["Manual Adjustments"] * invest_data_df["Price"]).sum()
-        )
-        no_invest_amount = invest_amount == 0
-        # Make sure to convert to correct datatypes before processing
-        # TODO: Check why highlighting and deleting invest_amount does not update correctly
-        for col in invest_data_df.columns.values:
-            try:
-                invest_data_df[col] = invest_data_df[col].astype(float)
-            except ValueError:
-                pass
-        invest_data_df, error_info = handle_btn_actions(
-            changed_id,
-            new_ticker,
-            new_region,
-            new_allocation,
-            invest_data_df,
-            prev_table_rows,
-            table_columns,
-            json_data,
-        )
 
-        # Returns errors from trying to handle the button actions
-        if error_info:
-            return (
-                dash.no_update,
-                dash.no_update,
-                dash.no_update,
-                dash.no_update,
-                html.P(error_info),
-                True,
-                dash.no_update,
-            )
-
-        # Update table values
-        invest_data_df = update_investment_plan_table(
-            invest_data_df, invest_amount, no_invest_amount
-        )
-
-        total_cost, cash_left = generate_spending_summary(invest_data_df, invest_amount)
-
-        # Update Region Dataframe
-        region_df = update_region_data_table(
-            invest_data_df,
-            invest_amount,
-            cash_left,
-            region_table_columns,
-            no_invest_amount,
-        )
-
-        return (
-            invest_data_df.to_dict("records"),
-            "$ {:.2f}".format(total_cost),
-            "$ {:.2f}".format(cash_left),
-            region_df.to_dict("records"),
-            dash.no_update,
-            False,
-            dash.no_update if has_started else "Started",
-        )
+    if changed_id == "initial-table-store.data" and json_data:
+        invest_data_df = pd.read_json(json_data)
     else:
+        invest_data_df = get_df(table_rows, table_columns)
+    # TODO: Put all try except in here
+    if invest_amount_:
+        invest_amount_ = invest_amount_[1:]
+    invest_amount_float, error_info = try_invest_amount_conv(invest_amount_)
+    # Returns errors from trying conversion
+    if error_info:
+        # TODO: find solution for when changed_id changes while uploading xlsx
+        if changed_id == "initial-table-store.data":
+            table_df = invest_data_df.to_dict("records")
+        else:
+            table_df = dash.no_update
+        return (
+            table_df,
+            dash.no_update,
+            dash.no_update,
+            dash.no_update,
+            html.P(error_info),
+            True,
+        )
+    # Set investment amount to input value or outcome of manual adjustments
+    invest_amount = (
+        invest_amount_float
+        if invest_amount_
+        else (invest_data_df["Manual Adjustments"] * invest_data_df["Price"]).sum()
+    )
+    no_invest_amount = invest_amount == 0
+    # Make sure to convert to correct datatypes before processing
+    # TODO: Check why highlighting and deleting invest_amount does not update correctly
+    for col in invest_data_df.columns.values:
+        try:
+            invest_data_df[col] = invest_data_df[col].astype(float)
+        except ValueError:
+            pass
+    invest_data_df, error_info = handle_btn_actions(
+        changed_id,
+        new_ticker,
+        new_region,
+        new_allocation,
+        invest_data_df,
+        prev_table_rows,
+        table_columns,
+        json_data,
+    )
+
+    # Returns errors from trying to handle the button actions
+    if error_info:
         return (
             dash.no_update,
             dash.no_update,
             dash.no_update,
             dash.no_update,
-            dash.no_update,
-            False,
-            dash.no_update,
+            html.P(error_info),
+            True,
         )
+
+    # Update table values
+    invest_data_df = update_investment_plan_table(invest_data_df, invest_amount)
+
+    total_cost, cash_left = generate_spending_summary(invest_data_df, invest_amount)
+
+    # Update Region Dataframe
+    region_df = update_region_data_table(
+        invest_data_df,
+        invest_amount,
+        cash_left,
+        region_table_columns,
+        no_invest_amount,
+    )
+
+    return (
+        invest_data_df.to_dict("records"),
+        "$ {:.2f}".format(total_cost),
+        "$ {:.2f}".format(cash_left),
+        region_df.to_dict("records"),
+        dash.no_update,
+        False,
+    )

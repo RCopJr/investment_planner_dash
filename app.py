@@ -9,6 +9,8 @@ external_stylesheets = [dbc.themes.SANDSTONE]
 
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 
+server = app.server
+
 app.layout = get_main_layout()
 
 if __name__ == "__main__":

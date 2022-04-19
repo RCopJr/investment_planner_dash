@@ -1,12 +1,15 @@
 # Investment Planner
 
-Initial readme for for investment planner
+Initial readme for investment planner
 
 ## Description
 
-A dash app that provides dashboards to help plan monthly investments with specified allocations and manual adjustments
+A dash app that provides dashboards to help plan one-time investments with specified allocations and manual adjustments: https://dash-investment-planner.herokuapp.com/
 
 ### Dependencies
 
-requirements.txt
+Inside of a python virtual environment run:
 
+```
+pip install -r requirements.txt
+```

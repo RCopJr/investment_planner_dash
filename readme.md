@@ -1,6 +1,8 @@
 # Investment Planner
 
-![main page](https://github.com/RCopJr/investment-planner-dash/blob/readme-updates/images/main_page.png?raw=true)
+<a href="https://github.com/RCopJr/investment-planner-dash">
+    <img src="images/main_page.png" alt="main_page">
+</a>
 
 A dash app that provides a dashboard to help organize one-time investments with a specified investment amount, percent allocations and manual adjustments: https://dash-investment-planner.herokuapp.com/
 
